@@ -1,6 +1,8 @@
 #!/usr/bin/python3
+"""entry point of the command interpreter
+"""
 import cmd
-import re
+import re, sys
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -22,6 +24,12 @@ class HBNBCommand(cmd.Cmd):
                      'Place',
                      'Reviews'
                      ]
+
+    def precmd(self, line: str) -> str:
+        '''non interactive mode'''
+        if not sys.stdin.isatty():
+            print()
+        return super().precmd(line)
 
     def do_create(self, line):
         '''Usage: create class_name'''
@@ -101,6 +109,7 @@ class HBNBCommand(cmd.Cmd):
             print(instance)
 
     def do_count(self, line):
+        '''Counts the number of instances'''
         count = 0
 
         if not line:
@@ -203,10 +212,10 @@ class HBNBCommand(cmd.Cmd):
         '''Quit the commandline'''
         return True
 
-    def help_quit(self):
-        '''Help for the quit command'''
-        print('Quit command to exit the program')
-        print()
+    # def help_quit(self):
+    #     '''Help for the quit command'''
+    #     print('Quit command to exit the program')
+    #     # print()
 
     def emptyline(self):
         '''Do nothing on empty line'''
