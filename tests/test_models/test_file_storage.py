@@ -8,6 +8,7 @@ from models.base_model import BaseModel
 class TestFileStorage(unittest.TestCase):
     '''Unit tests for the TestFileStorage class'''
     def setUp(self):
+        '''setup method'''
         self.storage = FileStorage()
         self.base_model = BaseModel()
         self.base_model.id = "test-id"

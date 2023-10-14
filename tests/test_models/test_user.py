@@ -9,10 +9,12 @@ import os
 class TestUser(unittest.TestCase):
     '''Unit tests for the Amenity class'''
     def setUp(self):
+        '''setup method'''
         self.user = User()
         self.storage = FileStorage()
 
     def tearDown(self):
+        '''teardown method'''
         # Clean up any created files or objects
         if os.path.exists(self.storage._FileStorage__file_path):
             os.remove(self.storage._FileStorage__file_path)

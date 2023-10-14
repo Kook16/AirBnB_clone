@@ -10,10 +10,12 @@ import os
 class TestBaseModel(unittest.TestCase):
     '''Unit tests for the BaseModel class'''
     def setUp(self):
+        '''setup method'''
         self.model = BaseModel()
         self.model1 = BaseModel()
 
     def tearDown(self):
+        '''teardown method'''
         # Remove the test file created during tests
         if os.path.exists(storage._FileStorage__file_path):
             os.remove(storage._FileStorage__file_path)

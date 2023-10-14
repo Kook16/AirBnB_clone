@@ -9,10 +9,12 @@ from models import storage, FileStorage
 class TestState(unittest.TestCase):
     '''Unit tests for the State class'''
     def setUp(self):
+        '''setup method'''
         self.state = State()
         self.storage = FileStorage()
 
     def tearDown(self):
+        '''teardown method'''
         # Clean up any created files or objects
         if os.path.exists(self.storage._FileStorage__file_path):
             os.remove(self.storage._FileStorage__file_path)
