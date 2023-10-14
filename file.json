@@ -1,0 +1,40 @@
+{
+    "BaseModel.26e97b57-95e4-4c18-a7da-839ae73b3a84": {
+        "id": "26e97b57-95e4-4c18-a7da-839ae73b3a84",
+        "created_at": "2023-10-14T10:17:55.230127",
+        "updated_at": "2023-10-14T10:17:55.230157",
+        "__class__": "BaseModel"
+    },
+    "BaseModel.93f20a39-2d85-4160-a869-b8eb708fd99a": {
+        "id": "93f20a39-2d85-4160-a869-b8eb708fd99a",
+        "created_at": "2023-10-14T10:18:33.636023",
+        "updated_at": "2023-10-14T10:18:33.636054",
+        "__class__": "BaseModel"
+    },
+    "User.7cc7c956-1bf0-4a8d-9b35-359351ef2b88": {
+        "id": "7cc7c956-1bf0-4a8d-9b35-359351ef2b88",
+        "created_at": "2023-10-14T10:18:41.241796",
+        "updated_at": "2023-10-14T10:18:41.241816",
+        "__class__": "User"
+    },
+    "State.275001bd-8186-44dd-bf1a-a5fce8494994": {
+        "id": "275001bd-8186-44dd-bf1a-a5fce8494994",
+        "created_at": "2023-10-14T10:18:48.739151",
+        "updated_at": "2023-10-14T10:18:48.739167",
+        "__class__": "State"
+    },
+    "Amenity.45577524-2299-4eeb-afb1-e6dcd940af5f": {
+        "id": "45577524-2299-4eeb-afb1-e6dcd940af5f",
+        "created_at": "2023-10-14T10:18:54.860904",
+        "updated_at": "2023-10-14T10:18:54.860929",
+        "__class__": "Amenity"
+    },
+    "BaseModel.6b510506-9474-447e-93db-d1f11a795fff": {
+        "id": "6b510506-9474-447e-93db-d1f11a795fff",
+        "created_at": "2023-10-14T14:38:39.294271",
+        "updated_at": "2023-10-14T14:46:28.927618",
+        "name": "Kook",
+        "my_number": 89,
+        "__class__": "BaseModel"
+    }
+}
