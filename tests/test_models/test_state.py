@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+'''Tests for the state module'''
 import unittest
 from models.state import State
 import os
@@ -5,6 +7,7 @@ from models import storage, FileStorage
 
 
 class TestState(unittest.TestCase):
+    '''Unit tests for the State class'''
     def setUp(self):
         self.state = State()
         self.storage = FileStorage()

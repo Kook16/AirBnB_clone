@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+'''Tests for the user module'''
 import unittest
 from models.user import User
 from models.engine.file_storage import FileStorage
@@ -5,7 +7,7 @@ import os
 
 
 class TestUser(unittest.TestCase):
-
+    '''Unit tests for the Amenity class'''
     def setUp(self):
         self.user = User()
         self.storage = FileStorage()

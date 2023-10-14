@@ -1,10 +1,12 @@
+'''Tests for the city module'''
 import unittest
 from models.city import City
 import os
 from models import storage, FileStorage
 
 
-class Testcity(unittest.TestCase):
+class TestCity(unittest.TestCase):
+    '''Unit tests for the City class'''
     def setUp(self):
         self.city = City()
         self.storage = FileStorage()

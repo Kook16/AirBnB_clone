@@ -1,10 +1,12 @@
+#!/usr/bin/python3
+'''Tests for the Filestorage module'''
 import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 
 
 class TestFileStorage(unittest.TestCase):
-
+    '''Unit tests for the TestFileStorage class'''
     def setUp(self):
         self.storage = FileStorage()
         self.base_model = BaseModel()

@@ -1,3 +1,5 @@
+#!/user/bin/python3
+'''Tests for the amenity module'''
 import unittest
 from models.amenity import Amenity
 import os
@@ -5,6 +7,7 @@ from models import storage, FileStorage
 
 
 class Testamenity(unittest.TestCase):
+    '''Unit tests for the Amenity class'''
     def setUp(self):
         self.amenity = Amenity()
         self.storage = FileStorage()

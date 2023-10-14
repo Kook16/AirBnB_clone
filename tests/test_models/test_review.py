@@ -1,10 +1,13 @@
+#!/usr/bin/python3
+'''Tests for the review class'''
 import unittest
 from models.review import Review
 from models import FileStorage, storage
 import os
 
 
-class TestState(unittest.TestCase):
+class TestReview(unittest.TestCase):
+    '''Unit tests for the Review class'''
     def setUp(self):
         self.review = Review()
         self.storage = FileStorage()

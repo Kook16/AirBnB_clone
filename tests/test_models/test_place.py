@@ -1,10 +1,13 @@
+#!/usr/bin/python3
+'''Tests for the State'''
 import unittest
 from models.place import Place
 import os
 from models import FileStorage, storage
 
 
-class TestState(unittest.TestCase):
+class TestPlace(unittest.TestCase):
+    '''Unit tests for the State class'''
     def setUp(self):
         self.place = Place()
         self.storage = FileStorage()
