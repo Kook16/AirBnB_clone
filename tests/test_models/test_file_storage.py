@@ -13,6 +13,7 @@ class TestFileStorage(unittest.TestCase):
         self.base_model.id = "test-id"
 
     def test_init(self):
+        '''Tests for the value of name attr'''
         self.assertIsInstance(self.storage, FileStorage)
         self.assertEqual(self.storage._FileStorage__file_path, "file.json")
 

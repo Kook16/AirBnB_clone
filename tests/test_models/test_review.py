@@ -18,31 +18,37 @@ class TestReview(unittest.TestCase):
             os.remove(self.storage._FileStorage__file_path)
 
     def test_review_instance(self):
+        '''Test for instances'''
         self.assertIsInstance(self.review, Review)
         self.assertTrue(hasattr(self.review, 'place_id'))
         self.assertTrue(hasattr(self.review, 'user_id'))
         self.assertTrue(hasattr(self.review, 'text'))
 
     def test_review_attributes(self):
+        '''Tests for attributes'''
         self.assertEqual(self.review.place_id, "")
         self.assertEqual(self.review.user_id, "")
         self.assertEqual(self.review.text, "")
 
     def test_review_to_dict(self):
+        '''Tests for to_dict method'''
         state_dict = self.review.to_dict()
         self.assertTrue(isinstance(state_dict, dict))
         self.assertIn('__class__', state_dict)
         self.assertEqual(state_dict['__class__'], 'Review')
 
     def test_review_str_method(self):
+        '''Tests for str method'''
         expected = f"[Review] ({self.review.id}) {self.review.__dict__}"
         self.assertEqual(str(self.review), expected)
 
     def test_review_save_updates_file(self):
+        '''tests for the save method'''
         self.review.save()
         self.assertTrue(os.path.exists(self.storage._FileStorage__file_path))
 
     def test_review_save_updates_objects_dict(self):
+        '''Tests for update method '''
         objects_dict = self.storage.all()
         self.review.save()
         new_objects_dict = self.storage.all()

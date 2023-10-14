@@ -18,6 +18,7 @@ class TestPlace(unittest.TestCase):
             os.remove(self.storage._FileStorage__file_path)
 
     def test_review_instance(self):
+        '''Test for instances'''
         self.assertIsInstance(self.place, Place)
         self.assertTrue(hasattr(self.place, 'city_id'))
         self.assertTrue(hasattr(self.place, 'user_id'))
@@ -32,6 +33,7 @@ class TestPlace(unittest.TestCase):
         self.assertTrue(hasattr(self.place, 'amenity_ids'))
 
     def test_place_attributes(self):
+        '''Tests for attributes'''
         self.assertEqual(self.place.city_id, "")
         self.assertEqual(self.place.user_id, "")
         self.assertEqual(self.place.name, "")
@@ -45,20 +47,24 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(self.place.amenity_ids, [])
 
     def test_review_to_dict(self):
+        '''Tests for to_dict method'''
         state_dict = self.place.to_dict()
         self.assertTrue(isinstance(state_dict, dict))
         self.assertIn('__class__', state_dict)
         self.assertEqual(state_dict['__class__'], 'Place')
 
     def test_review_str_method(self):
+        '''Tests for str method'''
         expected = f"[Place] ({self.place.id}) {self.place.__dict__}"
         self.assertEqual(str(self.place), expected)
 
     def test_review_save_updates_file(self):
+        '''tests for the save method'''
         self.place.save()
         self.assertTrue(os.path.exists(self.storage._FileStorage__file_path))
 
     def test_review_save_updates_objects_dict(self):
+        '''Tests for update method '''
         objects_dict = self.storage.all()
         self.place.save()
         new_objects_dict = self.storage.all()
