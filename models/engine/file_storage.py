@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+'''The file_storage module'''
 import json
 from models.base_model import BaseModel
 import os
@@ -9,8 +10,9 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
+
 class FileStorage:
-    '''class that serializes instances to a JSON file and deserializes JSON file to instances'''
+    '''serializes intas to JSON file and deserializes JSON file to insta'''
     __file_path = 'file.json'
     __objects = {}
     __valid_classes = {
@@ -26,7 +28,7 @@ class FileStorage:
     def all(self):
         '''returns the dictionary __objects'''
         return self.__objects
-    
+
     def new(self, obj):
         ''' sets in __objects the obj with key <obj class name>.id'''
         key = f'{obj.__class__.__name__}.{obj.id}'
@@ -40,7 +42,6 @@ class FileStorage:
         with open(self.__file_path, 'w') as json_file:
             json.dump(serialized_obj, json_file, indent=4)
 
-
     def reload(self):
         '''deserializes the JSON file to __objects (only if the JSON file'''
         json_dict = {}
@@ -52,7 +53,6 @@ class FileStorage:
             if class_name in self.__valid_classes:
                 obj = self.__valid_classes[class_name](**value)
                 self.__objects[key] = obj
-
 
 
 storage = FileStorage()
