@@ -1,61 +1,57 @@
 #!/usr/bin/python3
 '''The file_storage module'''
+
 import json
-from models.base_model import BaseModel
-import os
 from models.user import User
-from models.state import State
 from models.city import City
-from models.amenity import Amenity
+from models.state import State
 from models.place import Place
 from models.review import Review
+from models.amenity import Amenity
+from models.base_model import BaseModel
 
 
 class FileStorage:
-    '''serializes intas to JSON file and deserializes JSON file to insta'''
+    '''FileStorage performs serialization and deserilization'''
+
     __file_path = 'file.json'
     __objects = {}
-    __valid_classes = {
-        'BaseModel': BaseModel,
-        'User': User,
-        'State': State,
-        'City': City,
-        'Amenity': Amenity,
-        'Place': Place,
-        'Review': Review
+    all_classes = {
+        "BaseModel": BaseModel,
+        "User": User,
+        "Place": Place,
+        "Amenity": Amenity,
+        "City": City,
+        "Review": Review,
+        "State": State
     }
 
     def all(self):
-        '''returns the dictionary __objects'''
+        '''Return all objects of the class'''
         return self.__objects
 
     def new(self, obj):
-        ''' sets in __objects the obj with key <obj class name>.id'''
-        key = f'{obj.__class__.__name__}.{obj.id}'
-        self.__objects[key] = obj
+        '''Adds new object to the __objects'''
+        if obj:
+            key = f'{obj.__class__.__name__}.{obj.id}'
+            self.__objects[key] = obj
 
     def save(self):
-        '''serializes __objects to the JSON file (path: __file_path)'''
-        serialized_obj = {}
-        for key, value in self.__objects.items():
-            serialized_obj[key] = value.to_dict()
-        with open(self.__file_path, 'w') as json_file:
-            json.dump(serialized_obj, json_file)
+        '''Serialization step'''
+        save_dict = {}
+        for key, obj in self.__objects.items():
+            '''if type(obj) is dict:'''
+            save_dict[key] = obj.to_dict()
+        with open(self.__file_path, 'w') as f:
+            json.dump(save_dict, f)
 
     def reload(self):
-        '''deserializes the JSON file to __objects (only if the JSON file'''
-        str_dict = {}
+        '''Deserilaization step'''
         try:
-            # with open(self.__file_path) as json_file:
-            #     str_dict = json.load(json_file)
-            # for key, value in str_dict.items():
-            #     class_name, obj_id = key.split('.')
-            #     obj = self.__valid_classes[class_name](**value)
-            #     self.__objects[key] = obj
             with open(self.__file_path, 'r') as f:
                 str_oj = json.load(f)
             for key, value in str_oj.items():
-                class_v = self.__valid_classes[value['__class__']](**value)
+                class_v = self.all_classes[value['__class__']](**value)
                 self.__objects[key] = class_v
         except FileNotFoundError:
             pass
