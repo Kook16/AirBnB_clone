@@ -1,4 +1,9 @@
 #!/usr/bin/python3
+'''The `place` module
+
+It defines one class, `Place(),
+which inherits from `BaseModel()` class.`
+'''
 from models.base_model import BaseModel
 
 
