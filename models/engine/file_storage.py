@@ -44,16 +44,13 @@ class FileStorage:
 
     def reload(self):
         '''deserializes the JSON file to __objects (only if the JSON file'''
-        json_dict = {}
-        if os.path.exists(self.__file_path):
+        str_dict = {}
+        try:
             with open(self.__file_path) as json_file:
-                json_dict = json.load(json_file)
-        for key, value in json_dict.items():
-            class_name, obj_id = key.split('.')
-            if class_name in self.__valid_classes:
+                str_dict = json.load(json_file)
+            for key, value in str_dict.items():
+                class_name, obj_id = key.split('.')
                 obj = self.__valid_classes[class_name](**value)
                 self.__objects[key] = obj
-
-
-storage = FileStorage()
-storage.reload()
+        except FileNotFoundError:
+            pass
