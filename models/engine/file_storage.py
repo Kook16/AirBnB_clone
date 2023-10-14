@@ -40,7 +40,7 @@ class FileStorage:
         for key, value in self.__objects.items():
             serialized_obj[key] = value.to_dict()
         with open(self.__file_path, 'w') as json_file:
-            json.dump(serialized_obj, json_file, indent=4)
+            json.dump(serialized_obj, json_file)
 
     def reload(self):
         '''deserializes the JSON file to __objects (only if the JSON file'''
