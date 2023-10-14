@@ -161,19 +161,6 @@ class HBNBCommand(cmd.Cmd):
                 return False
             self.insta_count(class_name)
 
-        # elif re.match(r'^(\S+)\.show\("?(.+)"?\)$', input):
-        #     match = re.match(r'^(\S+)\.show\("?(.+)"?\)$', input)
-        #     class_name = strip_(match.group(1))
-        #     instance_id = strip_(match.group(2))
-        #     command = f'{class_name} {instance_id}'
-        #     self.do_show(command)
-        # elif re.match(r'^(\S+)\.destroy\("?(.+)"?\)$', input):
-        #     match = re.match(r'^(\S+)\.destroy\("?(.+)"?\)$', input)
-        #     class_name = match.group(1)
-        #     instance_id = match.group(2)
-        #     command = f'{class_name} {instance_id}'
-        #     self.do_destroy(command)
-
         elif re.match(r'^(\S+)\.(destroy|show)\("?(.+)"?\)$', input):
             match = re.match(r'^(\S+)\.(destroy|show)\("?(.+)"?\)$', input)
             # print(match.group(1))

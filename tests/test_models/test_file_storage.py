@@ -13,20 +13,23 @@ class TestFileStorage(unittest.TestCase):
         self.base_model.id = "test-id"
 
     def test_init(self):
-        '''Tests for the value of name attr'''
+        '''Tests for the __init__'''
         self.assertIsInstance(self.storage, FileStorage)
         self.assertEqual(self.storage._FileStorage__file_path, "file.json")
 
     def test_new_method(self):
+        '''Test for the new method'''
         self.storage.new(self.base_model)
         self.assertIn("BaseModel.test-id", self.storage._FileStorage__objects)
 
     def test_all_method(self):
+        '''Test for the all method'''
         self.storage.new(self.base_model)
         all_objs = self.storage.all()
         self.assertEqual(all_objs["BaseModel.test-id"], self.base_model)
 
     def test_save_method(self):
+        '''Test for the save method'''
         self.storage.new(self.base_model)
         self.storage.save()
         with open(self.storage._FileStorage__file_path, "r") as file:
@@ -34,6 +37,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn("BaseModel.test-id", data)
 
     def test_reload_method(self):
+        '''Tests for the reload method'''
         self.storage.new(self.base_model)
         self.storage.save()
         self.storage.reload()
