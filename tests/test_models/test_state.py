@@ -28,7 +28,7 @@ class TestState(unittest.TestCase):
         self.assertEqual(state_dict['__class__'], 'State')
 
     def test_state_str_method(self):
-        expected = f"{[State]} ({self.state.id}) {self.state.__dict__}"
+        expected = f"[State] ({self.state.id}) {self.state.__dict__}"
         self.assertEqual(str(self.state), expected)
 
     def test_state_save_updates_file(self):

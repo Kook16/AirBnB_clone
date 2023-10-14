@@ -28,7 +28,7 @@ class Testamenity(unittest.TestCase):
         self.assertEqual(amenity_dict['__class__'], 'Amenity')
 
     def test_amenity_str_method(self):
-        expected = f"{[Amenity]} ({self.amenity.id}) {self.amenity.__dict__}"
+        expected = f"[Amenity] ({self.amenity.id}) {self.amenity.__dict__}"
         self.assertEqual(str(self.amenity), expected)
 
     def test_amenity_save_updates_file(self):

@@ -32,7 +32,7 @@ class TestState(unittest.TestCase):
         self.assertEqual(state_dict['__class__'], 'Review')
 
     def test_review_str_method(self):
-        expected = f"{[Review]} ({self.review.id}) {self.review.__dict__}"
+        expected = f"[Review] ({self.review.id}) {self.review.__dict__}"
         self.assertEqual(str(self.review), expected)
 
     def test_review_save_updates_file(self):

@@ -28,7 +28,7 @@ class Testcity(unittest.TestCase):
         self.assertEqual(city_dict['__class__'], 'City')
 
     def test_city_str_method(self):
-        expected = f"{[City]} ({self.city.id}) {self.city.__dict__}"
+        expected = f"[City] ({self.city.id}) {self.city.__dict__}"
         self.assertEqual(str(self.city), expected)
 
     def test_city_save_updates_file(self):

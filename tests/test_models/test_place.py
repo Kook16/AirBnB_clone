@@ -48,7 +48,7 @@ class TestState(unittest.TestCase):
         self.assertEqual(state_dict['__class__'], 'Place')
 
     def test_review_str_method(self):
-        expected = f"{[Place]} ({self.place.id}) {self.place.__dict__}"
+        expected = f"[Place] ({self.place.id}) {self.place.__dict__}"
         self.assertEqual(str(self.place), expected)
 
     def test_review_save_updates_file(self):

@@ -35,7 +35,7 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user_dict['__class__'], 'User')
 
     def test_user_str_method(self):
-        expected = f"{[User]} ({self.user.id}) {self.user.__dict__}"
+        expected = f"[User] ({self.user.id}) {self.user.__dict__}"
         self.assertEqual(str(self.user), expected)
 
     def test_user_save_updates_file(self):

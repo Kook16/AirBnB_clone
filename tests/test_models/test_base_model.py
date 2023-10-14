@@ -38,7 +38,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(obj_dict['__class__'], 'BaseModel')
 
     def test_str_method(self):
-        expected = f"{[BaseModel]} ({self.model.id}) {self.model.__dict__}"
+        expected = f"[BaseModel] ({self.model.id}) {self.model.__dict__}"
         self.assertEqual(str(self.model), expected)
 
     def test_save_method_updates_updated_at(self):
