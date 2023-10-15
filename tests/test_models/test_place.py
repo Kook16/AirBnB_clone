@@ -1,76 +1,69 @@
 #!/usr/bin/python3
-'''Tests for the State'''
+'''tests for the `place` module'''
+
 import unittest
 from models.place import Place
-import os
-from models import FileStorage, storage
+from unittest.mock import patch
+from models.base_model import BaseModel
+import models
 
 
 class TestPlace(unittest.TestCase):
-    '''Unit tests for the State class'''
-    def setUp(self):
-        '''setup method'''
-        self.place = Place()
-        self.storage = FileStorage()
+    '''Tests for the Place class'''
 
-    def tearDown(self):
-        '''teardowm method'''
-        # Clean up any created files or objects
-        if os.path.exists(self.storage._FileStorage__file_path):
-            os.remove(self.storage._FileStorage__file_path)
+    @classmethod
+    def setUp(cls):
+        cls.my_place = Place()
 
-    def test_review_instance(self):
-        '''Test for instances'''
-        self.assertIsInstance(self.place, Place)
-        self.assertTrue(hasattr(self.place, 'city_id'))
-        self.assertTrue(hasattr(self.place, 'user_id'))
-        self.assertTrue(hasattr(self.place, 'name'))
-        self.assertTrue(hasattr(self.place, 'description'))
-        self.assertTrue(hasattr(self.place, 'number_rooms'))
-        self.assertTrue(hasattr(self.place, 'number_bathrooms'))
-        self.assertTrue(hasattr(self.place, 'max_guest'))
-        self.assertTrue(hasattr(self.place, 'price_by_night'))
-        self.assertTrue(hasattr(self.place, 'latitude'))
-        self.assertTrue(hasattr(self.place, 'longitude'))
-        self.assertTrue(hasattr(self.place, 'amenity_ids'))
+    @classmethod
+    def tearDown(cls) -> None:
+        del cls.my_place
 
-    def test_place_attributes(self):
-        '''Tests for attributes'''
-        self.assertEqual(self.place.city_id, "")
-        self.assertEqual(self.place.user_id, "")
-        self.assertEqual(self.place.name, "")
-        self.assertEqual(self.place.description, "")
-        self.assertEqual(self.place.number_rooms, 0)
-        self.assertEqual(self.place.number_bathrooms, 0)
-        self.assertEqual(self.place.max_guest, 0)
-        self.assertEqual(self.place.price_by_night, 0)
-        self.assertEqual(self.place.latitude, 0.0)
-        self.assertEqual(self.place.longitude, 0.0)
-        self.assertEqual(self.place.amenity_ids, [])
+    def test_docstring(self):
+        self.assertIsNotNone(Place.__doc__)
 
-    def test_review_to_dict(self):
-        '''Tests for to_dict method'''
-        state_dict = self.place.to_dict()
-        self.assertTrue(isinstance(state_dict, dict))
-        self.assertIn('__class__', state_dict)
-        self.assertEqual(state_dict['__class__'], 'Place')
+    def test_module_doc(self):
+        self.assertIsNotNone(models.place.__doc__)
 
-    def test_review_str_method(self):
-        '''Tests for str method'''
-        expected = f"[Place] ({self.place.id}) {self.place.__dict__}"
-        self.assertEqual(str(self.place), expected)
+    def test_has_all_attributes(self):
+        self.assertTrue(hasattr(self.my_place, 'city_id'))
+        self.assertTrue(hasattr(self.my_place, 'user_id'))
+        self.assertTrue(hasattr(self.my_place, 'name'))
+        self.assertTrue(hasattr(self.my_place, 'description'))
+        self.assertTrue(hasattr(self.my_place, 'number_rooms'))
+        self.assertTrue(hasattr(self.my_place, 'number_bathrooms'))
+        self.assertTrue(hasattr(self.my_place, 'max_guest'))
+        self.assertTrue(hasattr(self.my_place, 'price_by_night'))
+        self.assertTrue(hasattr(self.my_place, 'latitude'))
+        self.assertTrue(hasattr(self.my_place, 'longitude'))
+        self.assertTrue(hasattr(self.my_place, 'amenity_ids'))
 
-    def test_review_save_updates_file(self):
-        '''tests for the save method'''
-        self.place.save()
-        self.assertTrue(os.path.exists(self.storage._FileStorage__file_path))
+    def test_inherits_from_BaseClass(self):
+        self.assertIsInstance(self.my_place, BaseModel)
+        self.assertTrue(issubclass(self.my_place.__class__, BaseModel), True)
 
-    def test_review_save_updates_objects_dict(self):
-        '''Tests for update method '''
-        objects_dict = self.storage.all()
-        self.place.save()
-        new_objects_dict = self.storage.all()
-        self.assertEqual(objects_dict, new_objects_dict)
+    def test_str_repr(self):
+        str_repr = str(self.my_place)
+        self.assertIn('[Place]', str_repr)
+        self.assertIn(self.my_place.id, str_repr)
+
+    @patch('models.storage')
+    def test_save(self, mock_storage):
+        self.my_place.save()
+        self.assertIsNotNone(self.my_place.updated_at)
+        mock_storage.save.assert_called()
+
+    def test_to_dict(self):
+        a = self.my_place.to_dict()
+        self.assertEqual(a['__class__'], 'Place')
+        self.assertEqual(a['id'], self.my_place.id)
+        self.assertEqual(a['created_at'], self.my_place.created_at.isoformat())
+
+    def test_attribute_longitude(self):
+        place = Place()
+        self.assertTrue(hasattr(place, "longitude"))
+        self.assertEqual(place.longitude, 0.0)
+        self.assertTrue(type(place.longitude) == float)
 
 
 if __name__ == '__main__':

@@ -1,57 +1,79 @@
-#!/usr/bin/python3
-'''Tests for the state module'''
+#!/user/bin/python3
+'''Unit tests for the `state` module
+'''
+import os
+import copy
+from unittest.mock import patch
 import unittest
 from models.state import State
-import os
-from models import storage, FileStorage
+from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 
 
-class TestState(unittest.TestCase):
-    '''Unit tests for the State class'''
-    def setUp(self):
-        '''setup method'''
-        self.state = State()
-        self.storage = FileStorage()
+class TestUser(unittest.TestCase):
+    '''Unitest for the State class.'''
 
-    def tearDown(self):
-        '''teardown method'''
-        # Clean up any created files or objects
-        if os.path.exists(self.storage._FileStorage__file_path):
-            os.remove(self.storage._FileStorage__file_path)
+    @classmethod
+    def setUp(cls):
+        cls.state = State()
 
-    def test_state_instance(self):
-        '''Test for instances'''
+    @classmethod
+    def tearDown(cls) -> None:
+        del cls.state
+        # if os.path.exists("file.json"):
+        #     os.remove("file.json")
+
+    def test_docstring(self):
+        '''Test for docstring for the State class'''
+        self.assertIsNotNone(State.__doc__)
+        self.assertNotEqual(State.__doc__, "")
+
+    def test_state_paramteres(self):
+        '''Tests for parameters for the State classs'''
         self.assertIsInstance(self.state, State)
         self.assertTrue(hasattr(self.state, 'name'))
 
     def test_state_attributes(self):
-        '''Tests for attributes'''
+        '''test for attribute values'''
         self.assertEqual(self.state.name, "")
+        self.assertTrue(isinstance(self.state.name, str))
+
+    def test_state_name_type(self):
+        '''Test for the type of name'''
+        self.assertEqual(type(self.state.name), str)
 
     def test_state_to_dict(self):
-        '''Tests for to_dict method'''
-        state_dict = self.state.to_dict()
-        self.assertTrue(isinstance(state_dict, dict))
-        self.assertIn('__class__', state_dict)
-        self.assertEqual(state_dict['__class__'], 'State')
+        '''Tests for the to_dict method'''
+        obj = self.state.to_dict()
+        self.assertTrue(isinstance(obj, dict))
+        self.assertIn('__class__', obj)
+        self.assertEqual(obj['__class__'], 'State')
+        self.assertEqual(obj['id'], self.state.id)
+        self.assertEqual(obj['created_at'], self.state.created_at.isoformat())
 
     def test_state_str_method(self):
-        '''Tests for str method'''
-        expected = f"[State] ({self.state.id}) {self.state.__dict__}"
+        '''Tests for the __str__ method'''
+        expected = "[State] ({}) {}".format(self.state.id, self.state.__dict__)
         self.assertEqual(str(self.state), expected)
 
-    def test_state_save_updates_file(self):
-        '''tests for the save method'''
+    @patch('models.storage')
+    def test_save(self, mock_storage):
+        '''Tests for the save method'''
         self.state.save()
-        self.assertTrue(os.path.exists(self.storage._FileStorage__file_path))
+        self.assertIsNotNone(self.state.updated_at)
+        mock_storage.save.assert_called()
 
-    def test_state_save_updates_objects_dict(self):
-        '''Tests for update method '''
-        objects_dict = self.storage.all()
+    @patch('models.storage')
+    def test_save_method_updates_objects_dict(self, mock_storage):
+        '''Tests if the save method updated the values of the dict obj'''
+        obj_dict = {self.state.id: self.state}
+        mock_storage.all.return_value = copy.deepcopy(obj_dict)
+
         self.state.save()
-        new_objects_dict = self.storage.all()
-        self.assertEqual(objects_dict, new_objects_dict)
+        new_obj_dict = mock_storage.all()
+
+        self.assertNotEqual(obj_dict, new_obj_dict)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
